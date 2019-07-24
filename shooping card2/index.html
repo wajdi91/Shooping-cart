@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Cart</title>
+
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  <meta name="robots" content="noindex,follow" />
+</head>
+
+<body>
+  <div class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+      Shooping Bag total:<label class="totale">0</label>
+    </div>
+
+    <!-- Product #1 -->
+    <div class="item">
+      <div class="buttons">
+        <span class="delete-btn"></span>
+        <span class="like-btn"></span>
+      </div>
+
+      <div class="image">
+        <img src="item-1.png" alt="" />
+      </div>
+
+      <div class="description">
+        <span>Sbedri</span>
+        <span>White</span>
+      </div>
+
+      <div class="quantity">
+        <input class="plus-btn" type="button" name="button" value="+" />
+        <label class="sum">0</label>
+        <input class="minus-btn" type="button" name="button" value="-">
+
+      </div>
+
+      <div class="total-price">90</div>
+    </div>
+
+    <!-- Product #2 -->
+    <div class="item">
+      <div class="buttons">
+        <span class="delete-btn"></span>
+        <span class="like-btn"></span>
+      </div>
+
+      <div class="image">
+        <img src="item-2.png" alt="" />
+      </div>
+
+      <div class="description">
+        <span>Sneakers</span>
+        <span>White</span>
+      </div>
+
+      <div class="quantity">
+        <input class="plus-btn" type="button" name="button" value="+" />
+        <label class="sum">0</label>
+        <input class="minus-btn" type="button" name="button" value="-">
+
+      </div>
+
+      <div class="total-price">80</div>
+    </div>
+
+    <!-- Product #3 -->
+    <div class="item">
+      <div class="buttons">
+        <span class="delete-btn"></span>
+        <span class="like-btn"></span>
+      </div>
+
+      <div class="image">
+        <img src="item-3.png" alt="" />
+      </div>
+
+      <div class="description">
+        <span>Scarf</span>
+        <span>Brown</span>
+      </div>
+
+      <div class="quantity">
+        <input class="plus-btn" type="button" name="button" value="+" />
+        <label class="sum">0</label>
+        <input class="minus-btn" type="button" name="button" value="-">
+      </div>
+
+
+      <div class="total-price">40</div>
+    </div>
+  </div>
+
+  <script>
+
+    // //sup un elem
+
+    // let rCB = document.getElementsByClassName('delete-btn');
+    // for (let i = 0; i < rCB.length; i++) {
+    //   let button = rCB[i]
+    //   button.addEventListener('click', removeCartItem)
+
+    // }
+    // function removeCartItem(event) {
+    //   let buttonCliked = event.target;
+    //   buttonCliked.parentElement.parentElement.remove()
+
+    // }
+    // Remove
+    var rCB = Array.from(document.querySelectorAll('.delete-btn'));
+    rCB.map((el, i) =>
+      el.addEventListener("click", () => {
+        el.parentElement.parentElement.remove();
+        qt[i].innerHTML = 0;
+        totcal();
+      })
+    );
+    // // boutton plus
+    // let bp = document.querySelectorAll('.plus-btn');
+    // let qt = document.querySelectorAll('.sum')
+    // for (let i = 0; i < 3; i++) {
+
+    //   bp[i].addEventListener('click', function () {
+    //     qt[i].innerHTML++;
+    //     totcal();
+    //   });
+
+
+    // }
+
+    // // boutton moins
+    // var bm = document.querySelectorAll('.minus-btn');
+
+    // for (let i = 0; i < bm.length; i++) {
+
+    //   bm[i].addEventListener('click', () => {
+    //     if (Number(qt[i].innerHTML) > 0)
+    //       qt[i].innerHTML--;
+    //     totcal();
+    //   });
+
+
+    // }
+    // //totle-price
+    // var pr = document.getElementsByClassName('total-price');
+    // let tpx = document.querySelector('.total');
+    // let items = document.getElementsByClassName('item')
+
+
+    // Global Variable
+
+    var bp = Array.from(document.querySelectorAll(".plus-btn"));
+    var bm = Array.from(document.querySelectorAll(".minus-btn"));
+    var heart = Array.from(document.querySelectorAll(".heart"));
+    var qt = Array.from(document.querySelectorAll(".sum"));
+    var pr = Array.from(document.querySelectorAll(".total-price"));
+    var rCB = Array.from(document.querySelectorAll(".remove"));
+    var tpx = document.querySelector(".totale");
+    function totcal() {
+      var som = 0;
+      for (let i = 0; i < qt.length; i++) {
+        som += Number(pr[i].innerHTML) * Number(qt[i].innerHTML);
+      }
+      tpx.innerHTML = som;
+
+    };
+    // // Total
+    // const totcal = () => {
+    //   var somme = 0;
+    //   for (let i = 0; i < qt.length; i++) {
+    //     somme += Number(qt[i].innerHTML) * Number(pr[i].innerHTML);
+    //   }
+    //   tpx.innerHTML = somme;
+    // };
+
+    // Increment
+
+    Array.from(bp).map(el =>
+      el.addEventListener("click", () => {
+
+        el.nextElementSibling.innerHTML =
+          Number(el.nextElementSibling.innerHTML) + 1;
+        totcal();
+      })
+    );
+
+    // Decriment
+
+    bm.map(el =>
+      el.addEventListener("click", () => {
+        if (Number(el.previousElementSibling.innerHTML) > 0)
+          el.previousElementSibling.innerHTML =
+            Number(el.previousElementSibling.innerHTML) - 1;
+        totcal();
+      })
+    );
+
+    // Favorit
+
+    heart.map(el =>
+      el.addEventListener("click", () => {
+        el.style.color === "black"
+          ? (el.style.color = "red")
+          : (el.style.color = "black");
+      })
+    );
+// // Remove
+// rmv.map((el, i) =>
+//   el.addEventListener("click", () => {
+//     el.parentElement.parentElement.remove();
+//     quantity[i].innerHTML = 0;
+//     totall();
+//   })
+// );
+
+
+  </script>
+</body>
+
+</html>
